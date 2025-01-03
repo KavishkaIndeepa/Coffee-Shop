@@ -1,11 +1,11 @@
 import React from 'react'
-import { Text, View , StyleSheet} from 'react-native'
+import { Text, View , StyleSheet, ScrollView} from 'react-native'
 
 function CartScreen() {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Cart Screen</Text>
-    </View>
+    </ScrollView>
   )
 }
 

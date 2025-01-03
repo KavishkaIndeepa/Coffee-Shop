@@ -21,9 +21,9 @@ export default function HomeScreen() {
             case 'Main':
               iconName = focused ? 'home' : 'home-outline';
               break;
-            case 'Cart':
-              iconName = focused ? 'cart' : 'cart-outline';
-              break;
+            // case 'Cart':
+            //   iconName = focused ? 'cart' : 'cart-outline';
+            //   break;
             case 'Menu':
                 iconName = focused ? 'grid' : 'grid-outline';
                 break;
@@ -34,14 +34,14 @@ export default function HomeScreen() {
           // @ts-ignore
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'red',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: '#523712',
+        tabBarInactiveTintColor: '#0c0803',
         headerShown: false, // Hide the header for all tab screens
       })}
     >
       
       <Tab.Screen name="Main" component={MainScreen} />
-      <Tab.Screen name="Cart" component={CartScreen} />
+      {/* <Tab.Screen name="Cart" component={CartScreen} /> */}
       <Tab.Screen name="Menu" component={MenuScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
