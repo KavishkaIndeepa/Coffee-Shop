@@ -1,25 +1,226 @@
-import React from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  ScrollView,
+  ImageBackground,
+} from "react-native";
+import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { LinearGradient } from "expo-linear-gradient";
+
+// All Images
+const allImages = [
+  { source: require("../../assets/menu/Coffee-Burlap.jpg"), title: "Burlap" },
+  { source: require("../../assets/menu/coffee-latte.jpg"), title: "Latte" },
+  { source: require("../../assets/menu/Creamy-Coffee.png"), title: "Creamy Coffee" },
+  { source: require("../../assets/menu/Ice-coffee.jpg"), title: "Ice Coffee" },
+  { source: require("../../assets/menu/Irish-coffee.jpeg"), title: "Irish Coffee" },
+  { source: require("../../assets/menu/cake.jpeg"), title: "Cake" },
+  { source: require("../../assets/menu/Chocolate-Puff-Pastry.jpg"), title: "Chocolate Puff Pastry" },
+  { source: require("../../assets/menu/jam-pastries.jpeg"), title: "Jam Pastries" },
+  { source: require("../../assets/menu/potato-pastry.jpg"), title: "Potato Pastry" },
+];
+
+// Coffee Images
+const coffeeImages = [
+  { source: require("../../assets/menu/Coffee-Burlap.jpg"), title: "Burlap" },
+  { source: require("../../assets/menu/coffee-latte.jpg"), title: "Latte" },
+  { source: require("../../assets/menu/Creamy-Coffee.png"), title: "Creamy Coffee" },
+  { source: require("../../assets/menu/Ice-coffee.jpg"), title: "Ice Coffee" },
+  { source: require("../../assets/menu/Irish-coffee.jpeg"), title: "Irish Coffee" },
+];
+
+// Pastries Images
+const pastriesImages = [
+  { source: require("../../assets/menu/cake.jpeg"), title: "Cake" },
+  { source: require("../../assets/menu/Chocolate-Puff-Pastry.jpg"), title: "Chocolate Puff Pastry" },
+  { source: require("../../assets/menu/jam-pastries.jpeg"), title: "Jam Pastries" },
+  { source: require("../../assets/menu/potato-pastry.jpg"), title: "Potato Pastry" },
+];
+
+const All = () => (
+  <ScrollView contentContainerStyle={styles.tabContent} showsVerticalScrollIndicator={false}>
+    {allImages.map((item, index) => (
+      <View key={index} style={styles.itemImageView}>
+        <ImageBackground source={item.source} resizeMode="cover" style={styles.itemImage}>
+          <Text style={styles.imgTitle}>{item.title}</Text>
+        </ImageBackground>
+      </View>
+    ))}
+  </ScrollView>
+);
+
+const Coffee = () => (
+  <ScrollView contentContainerStyle={styles.tabContent} showsVerticalScrollIndicator={false}>
+    {coffeeImages.map((item, index) => (
+      <View key={index} style={styles.itemImageView}>
+        <ImageBackground source={item.source} resizeMode="cover" style={styles.itemImage}>
+          <Text style={styles.imgTitle}>{item.title}</Text>
+        </ImageBackground>
+      </View>
+    ))}
+  </ScrollView>
+);
+
+const Pastries = () => (
+  <ScrollView contentContainerStyle={styles.tabContent} showsVerticalScrollIndicator={false}>
+    {pastriesImages.map((item, index) => (
+      <View key={index} style={styles.itemImageView}>
+        <ImageBackground source={item.source} resizeMode="cover" style={styles.itemImage}>
+          <Text style={styles.imgTitle}>{item.title}</Text>
+        </ImageBackground>
+      </View>
+    ))}
+  </ScrollView>
+);
+
+const AllScreen = () => <All />;
+const CoffeeScreen = () => <Coffee />;
+const PastriesScreen = () => <Pastries />;
 
 function MenuScreen() {
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: "all", title: "All" },
+    { key: "coffee", title: "Coffee" },
+    { key: "pastries", title: "Pastries" },
+  ]);
+
+  const renderScene = SceneMap({
+    all: AllScreen,
+    coffee: CoffeeScreen,
+    pastries: PastriesScreen,
+  });
+
   return (
-    <ScrollView style={styles.container}>
-        <Text style={styles.title}>Menu Screen</Text>
-    </ScrollView>
-  )
+    <View style={styles.container}>
+      <LinearGradient colors={["#8B5A2B", "#3b270d"]} style={styles.gradient}>
+        <Text style={styles.title}>Welcome</Text>
+        <View style={styles.buttonContainer}>
+          {routes.map((route, i) => (
+            <TouchableOpacity key={route.key} onPress={() => setIndex(i)} style={styles.button}>
+              <LinearGradient
+                colors={index === i ? ["#754e1a", "#9e835f"] : ["#fff", "#ddd"]}
+                style={styles.buttonGradient}
+              >
+                <Text style={[styles.buttonText, index === i && styles.activeButtonText]}>
+                  {route.title}
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </LinearGradient>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: Dimensions.get("window").width }}
+        renderTabBar={(props) => (
+          <TabBar
+            {...props}
+            indicatorStyle={styles.indicator}
+            style={styles.tabBar}
+            //@ts-ignore
+            labelStyle={styles.label}
+          />
+        )}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-      },
-      title:{
-            fontSize: 30,
-            fontWeight: 'bold',
-            color: 'black',
-            textAlign: 'center',
-            padding: 10,
-      }
+  container: {
+    flex: 1,
+  },
+  gradient: {
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingVertical: 10,
+  },
+  button: {
+    flex: 1,
+    marginHorizontal: 5,
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+  buttonGradient: {
+    paddingVertical: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#333",
+  },
+  activeButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  tabContent: {
+    paddingHorizontal: 15,
+    paddingBottom: 20,
+    alignItems: "center",
+  },
+  tabBar: {
+    backgroundColor: "#fff",
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  indicator: {
+    backgroundColor: "#d87a3d",
+    height: 3,
+  },
+  label: {
+    fontWeight: "600",
+    textTransform: "capitalize",
+    color: "#333",
+  },
+  itemImageView: {
+    width: "90%",
+    marginVertical: 10,
+    borderRadius: 15,
+    overflow: "hidden",
+  },
+  itemImage: {
+    height: 200,
+    justifyContent: "flex-end",
+    padding: 10,
+  },
+  imgTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#fff",
+    textShadowColor: "rgba(0, 0, 0, 0.75)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
+  },
+  tabText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+  },
 });
 
-export default MenuScreen
+export default MenuScreen;

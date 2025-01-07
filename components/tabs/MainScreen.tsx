@@ -40,7 +40,6 @@ const sliderData = [
   },
 ];
 
-
 type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, "Main">;
 
 function MainScreen() {
@@ -69,6 +68,19 @@ function MainScreen() {
       </LinearGradient>
 
       {/* 2nd */}
+      <View style={styles.coffeeView}>
+        <Text style={styles.coffeeText}>Experience the Perfect Cup</Text>
+        <Text style={styles.coffeeSubText}>
+          <Text style={styles.coffeeSubTextMain}>Hikka Coffee Shop</Text> is a cosy café known for its expertly brewed coffee
+          and delicious treats. We offer a variety of drinks, freshly baked
+          pastries, and wholesome meals, all served in a warm, welcoming
+          atmosphere. Whether you're here to work, relax, or catch up with
+          friends, Hikka Coffee Shop is your go-to destination for comfort and
+          flavour.
+        </Text>
+      </View>
+
+      {/* 3rd */}
       <View style={styles.discountBg}>
         <Image source={sddefault} style={styles.discountImage}></Image>
         <View style={styles.discountContent}>
@@ -76,13 +88,16 @@ function MainScreen() {
           <Text style={styles.discountText}>
             Get 20% off on all items today!
           </Text>
-          <TouchableOpacity style={styles.discountButton} onPress={() => navigation.navigate("Menu")}>
+          <TouchableOpacity
+            style={styles.discountButton}
+            onPress={() => navigation.navigate("Menu")}
+          >
             <Text style={styles.discountButtonText}>Shop Now</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      {/* 3rd */}
+      {/* 4th */}
       <View style={styles.sliderContainer}>
         <Swiper
           style={styles.wrapper}
@@ -98,11 +113,11 @@ function MainScreen() {
             <View key={index} style={styles.slide}>
               <Image source={item.image} style={styles.sliderImage} />
               <LinearGradient
-          colors={["rgba(0, 0, 0, 0.7)", "transparent"]}
-          style={styles.slideGradient}
-        >
-          <Text style={styles.slideText}>{item.text}</Text>
-        </LinearGradient>
+                colors={["rgba(0, 0, 0, 0.7)", "transparent"]}
+                style={styles.slideGradient}
+              >
+                <Text style={styles.slideText}>{item.text}</Text>
+              </LinearGradient>
             </View>
           ))}
         </Swiper>
@@ -175,6 +190,27 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  coffeeView: {
+    flex: 1,
+    top: 20,
+    bottom: 20,
+  },
+  coffeeText: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#444",
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  coffeeSubText: {
+    paddingHorizontal: 15,
+    marginBottom: 20,
+    fontSize: 14,
+  },
+  coffeeSubTextMain:{
+    fontWeight: "bold",
+    fontSize: 16,
   },
   discountBg: {
     flexDirection: "row",
@@ -286,7 +322,6 @@ const styles = StyleSheet.create({
   pagination: {
     bottom: 10,
   },
-  
 });
 
 export default MainScreen;
