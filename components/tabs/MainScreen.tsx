@@ -13,6 +13,7 @@ import {
 import { RootStackParamList } from "../Common/StackNavigator";
 import { LinearGradient } from "expo-linear-gradient";
 import Swiper from "react-native-swiper";
+import MapView, { Marker } from "react-native-maps";
 
 const image = require("../../assets/home/coffee.png");
 const sddefault = require("../../assets/home/sddefault.jpg");
@@ -122,6 +123,27 @@ function MainScreen() {
           ))}
         </Swiper>
       </View>
+
+      {/* 5th */}
+      <View style={styles.mapContainer}>
+        <Text style={styles.mapTitle}>Visit Us</Text>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: 6.1408, // Latitude for Hikkaduwa
+            longitude: 80.1024, // Longitude for Hikkaduwa
+            latitudeDelta: 0.01, // Zoom level
+            longitudeDelta: 0.01,
+          }}
+        >
+          <Marker
+            coordinate={{ latitude: 6.1408, longitude: 80.1024 }}
+            title="Hikka Coffee"
+            description="Our cozy café in Hikkaduwa"
+          />
+        </MapView>
+      </View>
+      
     </ScrollView>
   );
 }
@@ -321,6 +343,28 @@ const styles = StyleSheet.create({
   },
   pagination: {
     bottom: 10,
+  },
+  mapContainer: {
+    flex: 1,
+    padding: 20,
+    marginVertical: 20,
+    backgroundColor: "white",
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  mapTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#444",
+    marginBottom: 10,
+  },
+  map: {
+    height: 300,
+    borderRadius: 15,
   },
 });
 
