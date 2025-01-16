@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-
+import Icon from "react-native-vector-icons/Ionicons";
 
 interface Item {
   source: any;
@@ -45,26 +45,31 @@ const ItemScreen: React.FC<ItemScreenProps> = ({ item, onClose }) => {
         </ImageBackground>
         <View style={styles.detailsContainer}>
           <Text style={styles.itemTitle}>{item.title}</Text>
-          <Text style={styles.itemPrice}>{item.price}</Text>
-          <View style={styles.quantityContainer}>
-            <TouchableOpacity onPress={handleDecrease} style={styles.quantityBtn}>
-              <Text style={styles.quantityText}>-</Text>
-            </TouchableOpacity>
-            <TextInput
-              style={styles.quantityInput}
-              value={String(quantity)}
-              editable={false}
-            />
-            <TouchableOpacity onPress={handleIncrease} style={styles.quantityBtn}>
-              <Text style={styles.quantityText}>+</Text>
-            </TouchableOpacity>
+          <View style={styles.priceQuantityRow}>
+            <Text style={styles.itemPrice}>{item.price}</Text>
+            <View style={styles.quantityContainer}>
+              <TouchableOpacity onPress={handleDecrease} style={styles.quantityBtn}>
+                <Text style={styles.quantityText}>-</Text>
+              </TouchableOpacity>
+              <TextInput
+                style={styles.quantityInput}
+                value={String(quantity)}
+                editable={false}
+              />
+              <TouchableOpacity onPress={handleIncrease} style={styles.quantityBtn}>
+                <Text style={styles.quantityText}>+</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={styles.actionContainer}>
-            <TouchableOpacity style={styles.actionButton}>
-              <Text style={styles.actionText}>Add to Cart</Text>
+            <TouchableOpacity style={styles.iconButton}>
+              <Icon name="cart-outline" size={24} color="#fff" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <Text style={styles.actionText}>Wishlist</Text>
+            <TouchableOpacity style={styles.iconButton}>
+              <Icon name="heart-outline" size={24} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.iconButton}>
+              <Text style={styles.actionText}>Order</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    // backgroundColor: "rgba(0, 0, 0, 0.5)",
     borderRadius: 20,
     padding: 5,
   },
@@ -111,15 +116,23 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
   },
+  priceQuantityRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 15,
+  },
   itemPrice: {
     fontSize: 20,
     color: "#8B5A2B",
-    marginBottom: 15,
+    fontWeight: "bold",
   },
   quantityContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 15,
+    backgroundColor: "#f5f5f5",
+    borderRadius: 10,
+    padding: 5,
   },
   quantityBtn: {
     padding: 10,
@@ -127,26 +140,32 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   quantityText: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "bold",
   },
   quantityInput: {
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     fontSize: 16,
     textAlign: "center",
     width: 40,
     borderBottomWidth: 1,
     borderColor: "#ccc",
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    paddingVertical: 2,
   },
   actionContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 10,
   },
-  actionButton: {
+  iconButton: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#d87a3d",
-    padding: 10,
     marginHorizontal: 5,
+    padding: 10,
     borderRadius: 5,
   },
   actionText: {
