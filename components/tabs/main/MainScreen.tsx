@@ -15,28 +15,28 @@ import { LinearGradient } from "expo-linear-gradient";
 import Swiper from "react-native-swiper";
 import MapView, { Marker } from "react-native-maps";
 
-const image = require("../../assets/home/coffee.png");
-const sddefault = require("../../assets/home/sddefault.jpg");
+const image = require("../../../assets/home/coffee.png");
+const sddefault = require("../../../assets/home/sddefault.jpg");
 
 const sliderData = [
   {
-    image: require("../../assets/home/Coffee-Burlap.jpg"),
+    image: require("../../../assets/home/Coffee-Burlap.jpg"),
     text: "Discover the rich aroma of our premium coffee blends.",
   },
   {
-    image: require("../../assets/home/coffee-latte.jpg"),
+    image: require("../../../assets/home/coffee-latte.jpg"),
     text: "Taste the freshness of our hand-picked beans.",
   },
   {
-    image: require("../../assets/home/Creamy-Coffee.png"),
+    image: require("../../../assets/home/Creamy-Coffee.png"),
     text: "Experience coffee like never before at Hikka Coffee.",
   },
   {
-    image: require("../../assets/home/Ice-coffee.jpg"),
+    image: require("../../../assets/home/Ice-coffee.jpg"),
     text: "Indulge in the finest coffee creations made just for you.",
   },
   {
-    image: require("../../assets/home/Irish-coffee.jpeg"),
+    image: require("../../../assets/home/Irish-coffee.jpeg"),
     text: "Savor the perfect cup every time, only at Hikka Coffee.",
   },
 ];

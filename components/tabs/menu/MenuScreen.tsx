@@ -7,54 +7,56 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
+  Modal,
 } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { LinearGradient } from "expo-linear-gradient";
+import ItemScreen from "./item/ItemScreen";
 
 // All Images
 const allImages = [
   {
-    source: require("../../assets/menu/Coffee-Burlap.jpg"),
+    source: require("../../../assets/menu/Coffee-Burlap.jpg"),
     title: "Burlap",
     price: "$5",
   },
   {
-    source: require("../../assets/menu/coffee-latte.jpg"),
+    source: require("../../../assets/menu/coffee-latte.jpg"),
     title: "Latte",
     price: "$4",
   },
   {
-    source: require("../../assets/menu/Creamy-Coffee.png"),
+    source: require("../../../assets/menu/Creamy-Coffee.png"),
     title: "Creamy Coffee",
     price: "$6",
   },
   {
-    source: require("../../assets/menu/Ice-coffee.jpg"),
+    source: require("../../../assets/menu/Ice-coffee.jpg"),
     title: "Ice Coffee",
     price: "$5",
   },
   {
-    source: require("../../assets/menu/Irish-coffee.jpeg"),
+    source: require("../../../assets/menu/Irish-coffee.jpeg"),
     title: "Irish Coffee",
     price: "$7",
   },
   {
-    source: require("../../assets/menu/cake.jpeg"),
+    source: require("../../../assets/menu/cake.jpeg"),
     title: "Cake",
     price: "$3",
   },
   {
-    source: require("../../assets/menu/Chocolate-Puff-Pastry.jpg"),
+    source: require("../../../assets/menu/Chocolate-Puff-Pastry.jpg"),
     title: "Chocolate Puff Pastry",
     price: "$2",
   },
   {
-    source: require("../../assets/menu/jam-pastries.jpeg"),
+    source: require("../../../assets/menu/jam-pastries.jpeg"),
     title: "Jam Pastries",
     price: "$2",
   },
   {
-    source: require("../../assets/menu/potato-pastry.jpg"),
+    source: require("../../../assets/menu/potato-pastry.jpg"),
     title: "Potato Pastry",
     price: "$2",
   },
@@ -63,27 +65,27 @@ const allImages = [
 // Coffee Images
 const coffeeImages = [
   {
-    source: require("../../assets/menu/Coffee-Burlap.jpg"),
+    source: require("../../../assets/menu/Coffee-Burlap.jpg"),
     title: "Burlap",
     price: "$5",
   },
   {
-    source: require("../../assets/menu/coffee-latte.jpg"),
+    source: require("../../../assets/menu/coffee-latte.jpg"),
     title: "Latte",
     price: "$4",
   },
   {
-    source: require("../../assets/menu/Creamy-Coffee.png"),
+    source: require("../../../assets/menu/Creamy-Coffee.png"),
     title: "Creamy Coffee",
     price: "$6",
   },
   {
-    source: require("../../assets/menu/Ice-coffee.jpg"),
+    source: require("../../../assets/menu/Ice-coffee.jpg"),
     title: "Ice Coffee",
     price: "$5",
   },
   {
-    source: require("../../assets/menu/Irish-coffee.jpeg"),
+    source: require("../../../assets/menu/Irish-coffee.jpeg"),
     title: "Irish Coffee",
     price: "$7",
   },
@@ -92,35 +94,35 @@ const coffeeImages = [
 // Pastries Images
 const pastriesImages = [
   {
-    source: require("../../assets/menu/cake.jpeg"),
+    source: require("../../../assets/menu/cake.jpeg"),
     title: "Cake",
     price: "$3",
   },
   {
-    source: require("../../assets/menu/Chocolate-Puff-Pastry.jpg"),
+    source: require("../../../assets/menu/Chocolate-Puff-Pastry.jpg"),
     title: "Chocolate Puff Pastry",
     price: "$2",
   },
   {
-    source: require("../../assets/menu/jam-pastries.jpeg"),
+    source: require("../../../assets/menu/jam-pastries.jpeg"),
     title: "Jam Pastries",
     price: "$2",
   },
   {
-    source: require("../../assets/menu/potato-pastry.jpg"),
+    source: require("../../../assets/menu/potato-pastry.jpg"),
     title: "Potato Pastry",
     price: "$2",
   },
 ];
 
-const All = () => (
+const All = ({ handleItemPress }: { handleItemPress: (item: any) => void }) => (
   <ScrollView
     contentContainerStyle={styles.tabContent}
     showsVerticalScrollIndicator={false}
   >
     {allImages.map((item, index) => (
       <View key={index} style={styles.itemImageView}>
-        <TouchableOpacity activeOpacity={0.50}>
+        <TouchableOpacity onPress={() => handleItemPress(item)} activeOpacity={0.5}>
           <ImageBackground
             source={item.source}
             resizeMode="cover"
@@ -132,9 +134,6 @@ const All = () => (
             />
             <Text style={styles.imgTitle}>{item.title}</Text>
             <Text style={styles.imgPrice}>{item.price}</Text>
-            {/* <TouchableOpacity style={styles.imgButton}>
-            <Text style={styles.imgPlus}>+</Text>
-          </TouchableOpacity> */}
           </ImageBackground>
         </TouchableOpacity>
       </View>
@@ -142,14 +141,14 @@ const All = () => (
   </ScrollView>
 );
 
-const Coffee = () => (
+const Coffee = ({ handleItemPress }: { handleItemPress: (item: any) => void }) => (
   <ScrollView
     contentContainerStyle={styles.tabContent}
     showsVerticalScrollIndicator={false}
   >
     {coffeeImages.map((item, index) => (
       <View key={index} style={styles.itemImageView}>
-        <TouchableOpacity activeOpacity={0.50}>
+        <TouchableOpacity onPress={() => handleItemPress(item)} activeOpacity={0.5}>
           <ImageBackground
             source={item.source}
             resizeMode="cover"
@@ -161,9 +160,6 @@ const Coffee = () => (
             />
             <Text style={styles.imgTitle}>{item.title}</Text>
             <Text style={styles.imgPrice}>{item.price}</Text>
-            {/* <TouchableOpacity style={styles.imgButton}>
-            <Text style={styles.imgPlus}>+</Text>
-          </TouchableOpacity> */}
           </ImageBackground>
         </TouchableOpacity>
       </View>
@@ -171,28 +167,25 @@ const Coffee = () => (
   </ScrollView>
 );
 
-const Pastries = () => (
+const Pastries = ({ handleItemPress }: { handleItemPress: (item: any) => void }) => (
   <ScrollView
     contentContainerStyle={styles.tabContent}
     showsVerticalScrollIndicator={false}
   >
     {pastriesImages.map((item, index) => (
       <View key={index} style={styles.itemImageView}>
-        <TouchableOpacity activeOpacity={0.50}>
+        <TouchableOpacity onPress={() => handleItemPress(item)} activeOpacity={0.5}>
           <ImageBackground
             source={item.source}
             resizeMode="cover"
             style={styles.itemImage}
           >
             <LinearGradient
-              colors={["rgba(0,0,0,0.9)", "transparent"]}
+              colors={["rgba(0, 0, 0, 0.9)", "transparent"]}
               style={StyleSheet.absoluteFill}
             />
             <Text style={styles.imgTitle}>{item.title}</Text>
             <Text style={styles.imgPrice}>{item.price}</Text>
-            {/* <TouchableOpacity style={styles.imgButton}>
-            <Text style={styles.imgPlus}>+</Text>
-          </TouchableOpacity> */}
           </ImageBackground>
         </TouchableOpacity>
       </View>
@@ -200,9 +193,6 @@ const Pastries = () => (
   </ScrollView>
 );
 
-const AllScreen = () => <All />;
-const CoffeeScreen = () => <Coffee />;
-const PastriesScreen = () => <Pastries />;
 
 function MenuScreen() {
   const [index, setIndex] = useState(0);
@@ -212,11 +202,20 @@ function MenuScreen() {
     { key: "pastries", title: "Pastries" },
   ]);
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const renderScene = SceneMap({
-    all: AllScreen,
-    coffee: CoffeeScreen,
-    pastries: PastriesScreen,
+    all: () => <All handleItemPress={handleItemPress} />,
+    coffee: () => <Coffee handleItemPress={handleItemPress} />,
+    pastries: () => <Pastries handleItemPress={handleItemPress} />,
   });
+  
+  const handleItemPress = (item: any) => {
+    setSelectedItem(item);
+    setModalVisible(true);
+  };
+
 
   return (
     <View style={styles.container}>
@@ -261,6 +260,19 @@ function MenuScreen() {
           />
         )}
       />
+       <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        {selectedItem && (
+          <ItemScreen
+            item={selectedItem}
+            onClose={() => setModalVisible(false)}
+          />
+        )}
+      </Modal>
     </View>
   );
 }

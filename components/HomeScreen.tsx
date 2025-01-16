@@ -2,10 +2,10 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import MainScreen from "./tabs/MainScreen";
-import CartScreen from "./tabs/CartScreen";
-import MenuScreen from "./tabs/MenuScreen";
-import ProfileScreen from "./tabs/ProfileScreen";
+import MainScreen from "./tabs/main/MainScreen";
+import CartScreen from "./tabs/cart/CartScreen";
+import MenuScreen from "./tabs/menu/MenuScreen";
+import ProfileScreen from "./tabs/profile/ProfileScreen";
 
 
 const Tab = createBottomTabNavigator();
