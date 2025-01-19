@@ -10,11 +10,27 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { StackNavigationProp } from "@react-navigation/stack";
+//@ts-ignore
+import { RootStackParamList } from '../Common/StackNavigator';
+import { useNavigation } from "@react-navigation/native";
+
+type StartScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Start'>;
+type EditProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'EditProfile'>;
+type OrderScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Order'>;
+type WishlistScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Wishlist'>;
+type SettingScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Setting'>;
 
 function ProfileScreen() {
   const [profilePic, setProfilePic] = useState("../../../assets/profile/John.jpg");
   const [name, setName] = useState("John Doe");
   const [email, setEmail] = useState("john.doe@gmail.com");
+
+   const navigation = useNavigation<StartScreenNavigationProp>();
+   const navigationProfile = useNavigation<EditProfileScreenNavigationProp>();
+   const navigationOrder = useNavigation<OrderScreenNavigationProp>();
+   const navigationWishlist = useNavigation<WishlistScreenNavigationProp>();
+   const navigationSetting = useNavigation<SettingScreenNavigationProp>();
 
   const handleEditProfilePic = () => {
     // Placeholder for image picker logic
@@ -47,7 +63,7 @@ function ProfileScreen() {
       <View style={styles.btnView}>
       {/* 1 - Edit Profile */}
       <View style={styles.profileBtn}>
-        <TouchableOpacity style={styles.btnContent}>
+        <TouchableOpacity style={styles.btnContent} onPress={() => navigationProfile.navigate('EditProfile')}>
           <Icon name="user" size={20} color="#523712" style={styles.icon} />
           <Text style={styles.profileBtnText}>Edit Profile</Text>
           <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
@@ -56,7 +72,7 @@ function ProfileScreen() {
 
       {/* 2 - My Orders */}
       <View style={styles.profileBtn}>
-        <TouchableOpacity style={styles.btnContent}>
+        <TouchableOpacity style={styles.btnContent} onPress={() => navigationOrder.navigate('Order')}>
           <Icon name="shopping-bag" size={20} color="#523712" style={styles.icon} />
           <Text style={styles.profileBtnText}>My Orders</Text>
           <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
@@ -65,7 +81,7 @@ function ProfileScreen() {
 
       {/* 3 - Wishlist */}
       <View style={styles.profileBtn}>
-        <TouchableOpacity style={styles.btnContent}>
+        <TouchableOpacity style={styles.btnContent} onPress={() => navigationWishlist.navigate('Wishlist')}>
           <Icon name="heart" size={20} color="#523712" style={styles.icon} />
           <Text style={styles.profileBtnText}>Wishlist</Text>
           <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
@@ -74,7 +90,7 @@ function ProfileScreen() {
 
       {/* 4 - Settings */}
       <View style={styles.profileBtn}>
-        <TouchableOpacity style={styles.btnContent}>
+        <TouchableOpacity style={styles.btnContent} onPress={() => navigationSetting.navigate('Setting')}>
           <Icon name="cog" size={20} color="#523712" style={styles.icon} />
           <Text style={styles.profileBtnText}>Settings</Text>
           <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
@@ -83,7 +99,7 @@ function ProfileScreen() {
 
       {/* 5 - Log Out */}
       <View style={styles.profileBtn}>
-        <TouchableOpacity style={styles.btnContent}>
+        <TouchableOpacity style={styles.btnContent} onPress={() => navigation.navigate('Start')}>
           <Icon name="sign-out" size={20} color="#523712" style={styles.icon} />
           <Text style={styles.profileBtnText}>Log Out</Text>
           <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />

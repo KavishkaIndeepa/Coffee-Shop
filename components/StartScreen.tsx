@@ -7,7 +7,7 @@ import { RootStackParamList } from '../Common/StackNavigator';
 
 type StartScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Start'>;
 
-const image = require("../assets/main/coffee_bg.jpg");
+const image = require("../assets/main/cofee_cup.jpg");
 
 export default function StartScreen() {
     const navigation = useNavigation<StartScreenNavigationProp>();

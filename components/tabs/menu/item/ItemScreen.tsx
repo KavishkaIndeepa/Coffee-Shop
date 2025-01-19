@@ -8,12 +8,13 @@ import {
   TextInput,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Item {
   source: any;
   title: string;
   price: string;
+  subtitle: string;
 }
 
 interface ItemScreenProps {
@@ -23,9 +24,12 @@ interface ItemScreenProps {
 
 const ItemScreen: React.FC<ItemScreenProps> = ({ item, onClose }) => {
   const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   const handleIncrease = () => setQuantity((prev) => prev + 1);
   const handleDecrease = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
+  const handleSizePress = (size: string) => setSelectedSize(size);
 
   return (
     <View style={styles.modalContainer}>
@@ -45,6 +49,7 @@ const ItemScreen: React.FC<ItemScreenProps> = ({ item, onClose }) => {
         </ImageBackground>
         <View style={styles.detailsContainer}>
           <Text style={styles.itemTitle}>{item.title}</Text>
+          <Text style={styles.itemSubTitle}>{item.subtitle}</Text>
           <View style={styles.priceQuantityRow}>
             <Text style={styles.itemPrice}>{item.price}</Text>
             <View style={styles.quantityContainer}>
@@ -61,15 +66,30 @@ const ItemScreen: React.FC<ItemScreenProps> = ({ item, onClose }) => {
               </TouchableOpacity>
             </View>
           </View>
+          {/* Size Selection */}
+          <View>
+            <Text style={styles.sizeText}>Size</Text>
+            <View style={styles.sizeContainer}>
+              {["S", "M", "L"].map((size) => (
+                <TouchableOpacity
+                  key={size}
+                  style={[
+                    styles.sizeButton,
+                    selectedSize === size && styles.activeSizeButton,
+                  ]}
+                  onPress={() => handleSizePress(size)}
+                >
+                  <Text>{size}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
           <View style={styles.actionContainer}>
-            <TouchableOpacity style={styles.iconButton}>
-              <Icon name="cart-outline" size={24} color="#fff" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
+             <TouchableOpacity style={styles.iconButton}>
               <Icon name="heart-outline" size={24} color="#fff" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconButton}>
-              <Text style={styles.actionText}>Order</Text>
+              <Text style={styles.actionText}>Buy Now</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -99,7 +119,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
-    // backgroundColor: "rgba(0, 0, 0, 0.5)",
     borderRadius: 20,
     padding: 5,
   },
@@ -116,6 +135,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
   },
+  itemSubTitle: {
+    fontSize: 16,
+    color: "#836031",
+    marginBottom: 10,
+  },
   priceQuantityRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -130,7 +154,6 @@ const styles = StyleSheet.create({
   quantityContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
     borderRadius: 10,
     padding: 5,
   },
@@ -153,6 +176,31 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 5,
     paddingVertical: 2,
+  },
+  sizeText: {
+    fontSize: 20,
+    paddingVertical: 10,
+    fontWeight: "bold",
+  },
+  sizeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  sizeButton: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#f5f5f5",
+    marginHorizontal: 5,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "transparent",
+  },
+  activeSizeButton: {
+    borderColor: "#d87a3d",
+    borderWidth: 2,
   },
   actionContainer: {
     flexDirection: "row",

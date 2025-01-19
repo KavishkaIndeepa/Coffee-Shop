@@ -6,6 +6,10 @@ import StartScreen from "./components/StartScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import HomeScreen from "./components/HomeScreen";
+import EditProfileScreen from "./components/tabs/profile/editProfile/EditProfileScreen";
+import OrderScreen from "./components/tabs/profile/orders/OrderScreen";
+import WishlistScreen from "./components/tabs/profile/wishlist/WishlistScreen";
+import SettingScreen from "./components/tabs/profile/setting/SettingScreen";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -21,6 +25,26 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="EditProfile"
+            component={EditProfileScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="Order"
+            component={OrderScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="Wishlist"
+            component={WishlistScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="Setting"
+            component={SettingScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

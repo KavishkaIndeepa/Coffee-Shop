@@ -18,46 +18,55 @@ const allImages = [
   {
     source: require("../../../assets/menu/Coffee-Burlap.jpg"),
     title: "Burlap",
+    subtitle: "A rustic coffee experience.",
     price: "$5",
   },
   {
     source: require("../../../assets/menu/coffee-latte.jpg"),
     title: "Latte",
+    subtitle: "Smooth and creamy latte.",
     price: "$4",
   },
   {
     source: require("../../../assets/menu/Creamy-Coffee.png"),
     title: "Creamy Coffee",
+    subtitle: "Rich and frothy coffee delight.",
     price: "$6",
   },
   {
     source: require("../../../assets/menu/Ice-coffee.jpg"),
     title: "Ice Coffee",
+    subtitle: "Chilled coffee perfection.",
     price: "$5",
   },
   {
     source: require("../../../assets/menu/Irish-coffee.jpeg"),
     title: "Irish Coffee",
+    subtitle: "A touch of whiskey in your coffee.",
     price: "$7",
   },
   {
     source: require("../../../assets/menu/cake.jpeg"),
     title: "Cake",
+    subtitle: "Soft and delicious dessert.",
     price: "$3",
   },
   {
     source: require("../../../assets/menu/Chocolate-Puff-Pastry.jpg"),
     title: "Chocolate Puff Pastry",
+    subtitle: "Flaky pastry with rich chocolate.",
     price: "$2",
   },
   {
     source: require("../../../assets/menu/jam-pastries.jpeg"),
     title: "Jam Pastries",
+    subtitle: "Sweet pastries filled with jam.",
     price: "$2",
   },
   {
     source: require("../../../assets/menu/potato-pastry.jpg"),
     title: "Potato Pastry",
+    subtitle: "Savory pastry with potato filling.",
     price: "$2",
   },
 ];
@@ -67,26 +76,31 @@ const coffeeImages = [
   {
     source: require("../../../assets/menu/Coffee-Burlap.jpg"),
     title: "Burlap",
+    subtitle: "A rustic coffee experience.",
     price: "$5",
   },
   {
     source: require("../../../assets/menu/coffee-latte.jpg"),
     title: "Latte",
+    subtitle: "Smooth and creamy latte.",
     price: "$4",
   },
   {
     source: require("../../../assets/menu/Creamy-Coffee.png"),
     title: "Creamy Coffee",
+    subtitle: "Rich and frothy coffee delight.",
     price: "$6",
   },
   {
     source: require("../../../assets/menu/Ice-coffee.jpg"),
     title: "Ice Coffee",
+    subtitle: "Chilled coffee perfection.",
     price: "$5",
   },
   {
     source: require("../../../assets/menu/Irish-coffee.jpeg"),
     title: "Irish Coffee",
+    subtitle: "A touch of whiskey in your coffee.",
     price: "$7",
   },
 ];
@@ -96,21 +110,25 @@ const pastriesImages = [
   {
     source: require("../../../assets/menu/cake.jpeg"),
     title: "Cake",
+    subtitle: "Soft and delicious dessert.",
     price: "$3",
   },
   {
     source: require("../../../assets/menu/Chocolate-Puff-Pastry.jpg"),
     title: "Chocolate Puff Pastry",
+    subtitle: "Flaky pastry with rich chocolate.",
     price: "$2",
   },
   {
     source: require("../../../assets/menu/jam-pastries.jpeg"),
     title: "Jam Pastries",
+    subtitle: "Sweet pastries filled with jam.",
     price: "$2",
   },
   {
     source: require("../../../assets/menu/potato-pastry.jpg"),
     title: "Potato Pastry",
+    subtitle: "Savory pastry with potato filling.",
     price: "$2",
   },
 ];
