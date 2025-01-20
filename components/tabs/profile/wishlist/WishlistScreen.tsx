@@ -39,6 +39,7 @@ function WishlistScreen({ navigation }: { navigation: any }) {
       },
       backButton: {
         marginRight: 15,
+        padding: 10,
       },
       title: {
         fontSize: 20,

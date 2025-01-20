@@ -40,6 +40,7 @@ const handleBack = () => {
       },
       backButton: {
         marginRight: 15,
+        padding: 10,
       },
       title: {
         fontSize: 20,

@@ -9,44 +9,64 @@ import {
   Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from "react-native-vector-icons/FontAwesome";
 import { StackNavigationProp } from "@react-navigation/stack";
-//@ts-ignore
-import { RootStackParamList } from '../Common/StackNavigator';
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+//@ts-ignore
+import { RootStackParamList } from "../Common/StackNavigator";
 
-type StartScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Start'>;
-type EditProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'EditProfile'>;
-type OrderScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Order'>;
-type WishlistScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Wishlist'>;
-type SettingScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Setting'>;
+type StartScreenNavigationProp = StackNavigationProp<RootStackParamList, "Start">;
+type EditProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, "EditProfile">;
+type OrderScreenNavigationProp = StackNavigationProp<RootStackParamList, "Order">;
+type WishlistScreenNavigationProp = StackNavigationProp<RootStackParamList, "Wishlist">;
+type SettingScreenNavigationProp = StackNavigationProp<RootStackParamList, "Setting">;
 
 function ProfileScreen() {
-  const [profilePic, setProfilePic] = useState("../../../assets/profile/John.jpg");
+  const [profilePic, setProfilePic] = useState<string | null>(null);
   const [name, setName] = useState("John Doe");
   const [email, setEmail] = useState("john.doe@gmail.com");
 
-   const navigation = useNavigation<StartScreenNavigationProp>();
-   const navigationProfile = useNavigation<EditProfileScreenNavigationProp>();
-   const navigationOrder = useNavigation<OrderScreenNavigationProp>();
-   const navigationWishlist = useNavigation<WishlistScreenNavigationProp>();
-   const navigationSetting = useNavigation<SettingScreenNavigationProp>();
+  const navigation = useNavigation<StartScreenNavigationProp>();
+  const navigationProfile = useNavigation<EditProfileScreenNavigationProp>();
+  const navigationOrder = useNavigation<OrderScreenNavigationProp>();
+  const navigationWishlist = useNavigation<WishlistScreenNavigationProp>();
+  const navigationSetting = useNavigation<SettingScreenNavigationProp>();
 
-  const handleEditProfilePic = () => {
-    // Placeholder for image picker logic
-    Alert.alert(
-      "Edit Profile Picture",
-      "Feature to choose a new profile picture coming soon!"
-    );
+  const handleEditProfilePic = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (!permissionResult.granted) {
+      Alert.alert("Permission Required", "We need access to your photos to change the profile picture.");
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled && result.assets) {
+      setProfilePic(result.assets[0].uri);
+    }
   };
 
   return (
     <ScrollView style={styles.container}>
-      {/* 1 */}
+      {/* Header Section */}
       <LinearGradient colors={["#694617", "#3b270d"]} style={styles.gradient}>
         <View style={styles.profileContainer}>
           <View style={styles.imageContainer}>
-            <Image source={{ uri: profilePic }} style={styles.profileImage} />
+            <Image
+              source={
+                profilePic
+                  ? { uri: profilePic }
+                  : require("../../../assets/profile/John.jpg") // Replace with your default profile image path
+              }
+              style={styles.profileImage}
+            />
             <TouchableOpacity
               style={styles.editButton}
               onPress={handleEditProfilePic}
@@ -59,54 +79,68 @@ function ProfileScreen() {
         </View>
       </LinearGradient>
 
-      {/* 2 */}
+      {/* Buttons Section */}
       <View style={styles.btnView}>
-      {/* 1 - Edit Profile */}
-      <View style={styles.profileBtn}>
-        <TouchableOpacity style={styles.btnContent} onPress={() => navigationProfile.navigate('EditProfile')}>
-          <Icon name="user" size={20} color="#523712" style={styles.icon} />
-          <Text style={styles.profileBtnText}>Edit Profile</Text>
-          <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
-        </TouchableOpacity>
-      </View>
+        {/* Edit Profile */}
+        <View style={styles.profileBtn}>
+          <TouchableOpacity
+            style={styles.btnContent}
+            onPress={() => navigationProfile.navigate("EditProfile")}
+          >
+            <Icon name="user" size={20} color="#523712" style={styles.icon} />
+            <Text style={styles.profileBtnText}>Edit Profile</Text>
+            <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
+          </TouchableOpacity>
+        </View>
 
-      {/* 2 - My Orders */}
-      <View style={styles.profileBtn}>
-        <TouchableOpacity style={styles.btnContent} onPress={() => navigationOrder.navigate('Order')}>
-          <Icon name="shopping-bag" size={20} color="#523712" style={styles.icon} />
-          <Text style={styles.profileBtnText}>My Orders</Text>
-          <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
-        </TouchableOpacity>
-      </View>
+        {/* My Orders */}
+        <View style={styles.profileBtn}>
+          <TouchableOpacity
+            style={styles.btnContent}
+            onPress={() => navigationOrder.navigate("Order")}
+          >
+            <Icon name="shopping-bag" size={20} color="#523712" style={styles.icon} />
+            <Text style={styles.profileBtnText}>My Orders</Text>
+            <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
+          </TouchableOpacity>
+        </View>
 
-      {/* 3 - Wishlist */}
-      <View style={styles.profileBtn}>
-        <TouchableOpacity style={styles.btnContent} onPress={() => navigationWishlist.navigate('Wishlist')}>
-          <Icon name="heart" size={20} color="#523712" style={styles.icon} />
-          <Text style={styles.profileBtnText}>Wishlist</Text>
-          <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
-        </TouchableOpacity>
-      </View>
+        {/* Wishlist */}
+        <View style={styles.profileBtn}>
+          <TouchableOpacity
+            style={styles.btnContent}
+            onPress={() => navigationWishlist.navigate("Wishlist")}
+          >
+            <Icon name="heart" size={20} color="#523712" style={styles.icon} />
+            <Text style={styles.profileBtnText}>Wishlist</Text>
+            <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
+          </TouchableOpacity>
+        </View>
 
-      {/* 4 - Settings */}
-      <View style={styles.profileBtn}>
-        <TouchableOpacity style={styles.btnContent} onPress={() => navigationSetting.navigate('Setting')}>
-          <Icon name="cog" size={20} color="#523712" style={styles.icon} />
-          <Text style={styles.profileBtnText}>Settings</Text>
-          <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
-        </TouchableOpacity>
-      </View>
+        {/* Settings */}
+        <View style={styles.profileBtn}>
+          <TouchableOpacity
+            style={styles.btnContent}
+            onPress={() => navigationSetting.navigate("Setting")}
+          >
+            <Icon name="cog" size={20} color="#523712" style={styles.icon} />
+            <Text style={styles.profileBtnText}>Settings</Text>
+            <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
+          </TouchableOpacity>
+        </View>
 
-      {/* 5 - Log Out */}
-      <View style={styles.profileBtn}>
-        <TouchableOpacity style={styles.btnContent} onPress={() => navigation.navigate('Start')}>
-          <Icon name="sign-out" size={20} color="#523712" style={styles.icon} />
-          <Text style={styles.profileBtnText}>Log Out</Text>
-          <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
-        </TouchableOpacity>
+        {/* Log Out */}
+        <View style={styles.profileBtn}>
+          <TouchableOpacity
+            style={styles.btnContent}
+            onPress={() => navigation.navigate("Start")}
+          >
+            <Icon name="sign-out" size={20} color="#523712" style={styles.icon} />
+            <Text style={styles.profileBtnText}>Log Out</Text>
+            <Icon name="angle-right" size={20} color="#523712" style={styles.arrowIcon} />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-
     </ScrollView>
   );
 }
