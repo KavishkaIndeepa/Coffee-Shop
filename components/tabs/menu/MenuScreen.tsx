@@ -66,7 +66,7 @@ const TabContent = ({ items, handleItemPress }: TabContentProps) => {
   const displayedItems = paginateItems(items, currentPage);
 
   return (
-    <View>
+    <ScrollView>
       <ScrollView
         contentContainerStyle={styles.tabContent}
         showsVerticalScrollIndicator={false}
@@ -98,7 +98,7 @@ const TabContent = ({ items, handleItemPress }: TabContentProps) => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -251,7 +251,7 @@ const MenuScreen = () => {
   return (
     <View style={styles.container}>
       <LinearGradient colors={["#8B5A2B", "#3b270d"]} style={styles.gradient}>
-        <Text style={styles.title}>Welcome</Text>
+        <Text style={styles.title}>Our Items</Text>
       </LinearGradient>
       <View style={styles.tabContainer}>
         {routes.map((route, i) => (
@@ -293,8 +293,6 @@ const styles = StyleSheet.create({
   gradient: {
     paddingVertical: 20,
     paddingHorizontal: 15,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
   },
   title: {
     fontSize: 32,
@@ -302,6 +300,7 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     marginBottom: 20,
+    marginTop: 30,
   },
   tabContainer: {
     flexDirection: "row",

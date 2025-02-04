@@ -63,7 +63,7 @@ function ProfileScreen() {
               source={
                 profilePic
                   ? { uri: profilePic }
-                  : require("../../../assets/profile/John.jpg") // Replace with your default profile image path
+                  : require("../../../assets/profile/John.jpg") // Replace default profile image path
               }
               style={styles.profileImage}
             />
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
     alignItems: "center",
     justifyContent: "center",
+    // height: 400,
   },
   profileContainer: {
     alignItems: "center",

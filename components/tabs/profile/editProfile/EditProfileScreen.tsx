@@ -61,7 +61,7 @@ function ModernEditProfileScreen({ navigation }: { navigation: any }) {
             source={
               profileImage
                 ? { uri: profileImage }
-                : require('../../../../assets/profile/John.jpg') // Replace with your default image
+                : require('../../../../assets/profile/John.jpg') // Replace default image
             }
             style={[styles.profileImage, { opacity: imageOpacity }]}
           />

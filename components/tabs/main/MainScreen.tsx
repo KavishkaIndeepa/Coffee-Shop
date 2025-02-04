@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 20,
     paddingHorizontal: 15,
+    // height: 400,
   },
   title: {
     fontSize: 32,
@@ -163,6 +164,7 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     marginBottom: 20,
+    marginTop: 30,
   },
   mainBg: {
     flexDirection: "row",

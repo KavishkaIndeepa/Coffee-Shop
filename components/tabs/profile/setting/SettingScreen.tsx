@@ -61,15 +61,6 @@ function SettingScreen({ navigation }: { navigation: any }) {
           <Icon name="angle-right" size={20} color="#523712" />
         </TouchableOpacity>
 
-        {/* Account */}
-        {/* <TouchableOpacity style={styles.row}>
-          <View style={styles.iconContainer}>
-            <Icon name="user" size={20} color="#523712" />
-          </View>
-          <Text style={styles.text}>Account</Text>
-          <Icon name="angle-right" size={20} color="#523712" />
-        </TouchableOpacity> */}
-
         {/* Help */}
         <TouchableOpacity style={styles.row}>
           <View style={styles.iconContainer}>

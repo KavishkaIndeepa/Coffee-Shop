@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from "react-native-vector-icons/Ionicons";
 
 interface Item {
   source: any;
@@ -24,12 +24,20 @@ interface ItemScreenProps {
 
 const ItemScreen: React.FC<ItemScreenProps> = ({ item, onClose }) => {
   const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>("S");
+  const basePrice = parseFloat(item.price.replace("$", "")); // Convert price to number
+  const [currentPrice, setCurrentPrice] = useState(basePrice);
 
   const handleIncrease = () => setQuantity((prev) => prev + 1);
   const handleDecrease = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
-  const handleSizePress = (size: string) => setSelectedSize(size);
+  const handleSizePress = (size: string) => {
+    setSelectedSize(size);
+    let newPrice = basePrice;
+    if (size === "M") newPrice += 2;
+    if (size === "L") newPrice += 4;
+    setCurrentPrice(newPrice);
+  };
 
   return (
     <View style={styles.modalContainer}>
@@ -51,7 +59,7 @@ const ItemScreen: React.FC<ItemScreenProps> = ({ item, onClose }) => {
           <Text style={styles.itemTitle}>{item.title}</Text>
           <Text style={styles.itemSubTitle}>{item.subtitle}</Text>
           <View style={styles.priceQuantityRow}>
-            <Text style={styles.itemPrice}>{item.price}</Text>
+            <Text style={styles.itemPrice}>${currentPrice.toFixed(2)}</Text>
             <View style={styles.quantityContainer}>
               <TouchableOpacity onPress={handleDecrease} style={styles.quantityBtn}>
                 <Text style={styles.quantityText}>-</Text>
@@ -85,7 +93,7 @@ const ItemScreen: React.FC<ItemScreenProps> = ({ item, onClose }) => {
             </View>
           </View>
           <View style={styles.actionContainer}>
-             <TouchableOpacity style={styles.iconButton}>
+            <TouchableOpacity style={styles.iconButton}>
               <Icon name="heart-outline" size={24} color="#fff" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconButton}>
